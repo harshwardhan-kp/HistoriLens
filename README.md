@@ -1,16 +1,18 @@
 <div align="center">
 
-<img src="https://skillicons.dev/icons?i=flutter,dart,supabase" height="48" />
-&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Groq%20AI-FF6C37?style=for-the-badge&logo=lightning&logoColor=white" height="28"/>
-
-<br/><br/>
-
-# HistoriLens 🌍
+# HistoriLens
 
 **See history the way they did — not just the way you were taught.**
 
 Every historical event has more than one side. HistoriLens uses AI to surface perspectives from different countries, religions, schools of thought, and cultures — all at once, all in one place.
+
+<br/>
+
+<img src="https://skillicons.dev/icons?i=flutter,dart,supabase" height="48" />
+&nbsp;&nbsp;
+<img src="https://img.shields.io/badge/Groq%20AI-FF6C37?style=for-the-badge&logo=lightning&logoColor=white" height="28"/>
+<br/>
+<br/>
 
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white)](https://dart.dev)
@@ -24,10 +26,12 @@ Every historical event has more than one side. HistoriLens uses AI to surface pe
 
 ## 📹 Demo
 
-> *(video coming soon — drop a screen recording here)*
+https://github.com/user-attachments/assets/d1c09de4-34bd-49ce-8121-11efbc8f68dd
 
 &nbsp;
-
+demo-credentials:
+  user-id: mandapowar9@gmail.com
+  password: harshw.kp@gmail.com
 ---
 
 ## What it actually does
