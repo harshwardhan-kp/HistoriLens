@@ -24,6 +24,7 @@ dependencies:
   flutter_markdown: ^0.7.5+2
   share_plus: ^10.1.4
   phosphor_flutter: ^2.1.0
+  screenshot: ^3.0.0
 
 dev_dependencies:
   flutter_test:

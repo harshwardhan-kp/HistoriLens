@@ -5,18 +5,18 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/theme.dart';
 import 'core/router.dart';
 import 'services/auth_service.dart';
+import 'services/bookmark_service.dart';
+import 'services/history_service.dart';
 import 'providers/perspective_provider.dart';
+import 'providers/theme_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await dotenv.load(fileName: '.env');
-
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
-
   runApp(const HistoriLensApp());
 }
 
@@ -29,14 +29,19 @@ class HistoriLensApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => PerspectiveProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => BookmarkService()),
+        ChangeNotifierProvider(create: (_) => HistoryService()),
       ],
-      child: Builder(
-        builder: (context) {
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, _) {
           final router = createRouter();
           return MaterialApp.router(
             title: 'HistoriLens',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.themeMode,
             routerConfig: router,
           );
         },
