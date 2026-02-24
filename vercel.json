@@ -1,0 +1,6 @@
+{
+    "buildCommand": "printf 'SUPABASE_URL=%s\\nSUPABASE_ANON_KEY=%s\\nGROQ_API_KEY=%s\\n' \"$SUPABASE_URL\" \"$SUPABASE_ANON_KEY\" \"$GROQ_API_KEY\" > .env && flutter/bin/flutter build web --release",
+    "outputDirectory": "build/web",
+    "installCommand": "if cd flutter; then git pull && cd ..; else git clone https://github.com/flutter/flutter.git; fi && flutter/bin/flutter doctor && flutter/bin/flutter clean && flutter/bin/flutter config --enable-web",
+    "framework": null
+}
