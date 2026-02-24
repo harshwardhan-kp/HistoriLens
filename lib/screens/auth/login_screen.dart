@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../core/theme.dart';
 import '../../services/auth_service.dart';
 
@@ -91,7 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
             color: AppTheme.primary,
             borderRadius: BorderRadius.circular(14),
           ),
-          child: const Center(child: Text('🔭', style: TextStyle(fontSize: 26))),
+          child: Center(
+            child: PhosphorIcon(PhosphorIconsRegular.planet, color: Colors.white, size: 26),
+          ),
         ),
         const SizedBox(height: 20),
         Text('Welcome back', style: Theme.of(context).textTheme.displayMedium),
@@ -118,9 +121,9 @@ class _LoginScreenState extends State<LoginScreen> {
             keyboardType: TextInputType.emailAddress,
             autocorrect: false,
             textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Email',
-              prefixIcon: Icon(Icons.email_outlined, size: 20),
+              prefixIcon: PhosphorIcon(PhosphorIconsRegular.envelope, size: 20, color: AppTheme.textSecondary),
             ),
             validator: (v) {
               if (v == null || v.isEmpty) return 'Please enter your email';
@@ -136,10 +139,10 @@ class _LoginScreenState extends State<LoginScreen> {
             onFieldSubmitted: (_) => _signIn(),
             decoration: InputDecoration(
               labelText: 'Password',
-              prefixIcon: const Icon(Icons.lock_outlined, size: 20),
+              prefixIcon: PhosphorIcon(PhosphorIconsRegular.lockSimple, size: 20, color: AppTheme.textSecondary),
               suffixIcon: IconButton(
-                icon: Icon(
-                  _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                icon: PhosphorIcon(
+                  _obscurePassword ? PhosphorIconsRegular.eye : PhosphorIconsRegular.eyeSlash,
                   size: 20,
                   color: AppTheme.textSecondary,
                 ),
@@ -168,16 +171,13 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 1),
-            child: Icon(Icons.error_outline, color: AppTheme.error, size: 18),
+          Padding(
+            padding: const EdgeInsets.only(top: 1),
+            child: PhosphorIcon(PhosphorIconsRegular.warning, color: AppTheme.error, size: 18),
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              message,
-              style: const TextStyle(color: AppTheme.error, fontSize: 13, height: 1.4),
-            ),
+            child: Text(message, style: const TextStyle(color: AppTheme.error, fontSize: 13, height: 1.4)),
           ),
         ],
       ),
@@ -190,11 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: ElevatedButton(
         onPressed: _isLoading ? null : _signIn,
         child: _isLoading
-            ? const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-              )
+            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
             : const Text('Sign In'),
       ),
     );

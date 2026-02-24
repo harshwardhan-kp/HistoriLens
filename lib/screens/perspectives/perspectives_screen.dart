@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../core/theme.dart';
 import '../../models/historical_event.dart';
 import '../../models/perspective.dart';
@@ -59,7 +60,7 @@ class _PerspectivesScreenState extends State<PerspectivesScreen> {
     return AppBar(
       backgroundColor: AppTheme.background,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+        icon: PhosphorIcon(PhosphorIconsRegular.arrowLeft, size: 20),
         onPressed: () => Navigator.of(context).pop(),
       ),
       title: const Text('Perspectives'),
@@ -111,7 +112,18 @@ class _PerspectivesScreenState extends State<PerspectivesScreen> {
               return Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: FilterChip(
-                  label: Text('${type.emoji} ${type.label}'),
+                  label: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      PhosphorIcon(
+                        type.icon,
+                        size: 14,
+                        color: isSelected ? AppTheme.primary : AppTheme.textSecondary,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(type.label),
+                    ],
+                  ),
                   selected: isSelected,
                   onSelected: isLoading
                       ? null
@@ -236,7 +248,7 @@ class _PerspectivesScreenState extends State<PerspectivesScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('⚠️', style: TextStyle(fontSize: 48)),
+            PhosphorIcon(PhosphorIconsRegular.warning, color: AppTheme.error, size: 48),
             const SizedBox(height: 16),
             Text(
               'Could not load perspectives',
@@ -255,7 +267,7 @@ class _PerspectivesScreenState extends State<PerspectivesScreen> {
                 final provider = context.read<PerspectiveProvider>();
                 provider.changeType(provider.currentType);
               },
-              icon: const Icon(Icons.refresh_rounded, size: 18),
+              icon: PhosphorIcon(PhosphorIconsRegular.arrowClockwise, size: 18),
               label: const Text('Try Again'),
             ),
           ],
@@ -467,7 +479,7 @@ class PerspectiveCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           _ActionButton(
-            icon: Icons.copy_rounded,
+            icon: PhosphorIconsRegular.copy,
             label: 'Copy',
             onTap: () {
               Clipboard.setData(ClipboardData(
@@ -493,7 +505,7 @@ class PerspectiveCard extends StatelessWidget {
 }
 
 class _ActionButton extends StatelessWidget {
-  final IconData icon;
+  final PhosphorIconData icon;
   final String label;
   final VoidCallback onTap;
 
@@ -513,7 +525,7 @@ class _ActionButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 16, color: AppTheme.textSecondary),
+            PhosphorIcon(icon, size: 16, color: AppTheme.textSecondary),
             const SizedBox(width: 6),
             Text(
               label,

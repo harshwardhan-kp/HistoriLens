@@ -1,3 +1,5 @@
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 enum PerspectiveType {
   country,
   religion,
@@ -29,6 +31,19 @@ extension PerspectiveTypeExtension on PerspectiveType {
         return '🎓';
       case PerspectiveType.cultural:
         return '🏛️';
+    }
+  }
+
+  PhosphorIconData get icon {
+    switch (this) {
+      case PerspectiveType.country:
+        return PhosphorIconsRegular.globe;
+      case PerspectiveType.religion:
+        return PhosphorIconsRegular.mosque;
+      case PerspectiveType.schoolOfThought:
+        return PhosphorIconsRegular.graduationCap;
+      case PerspectiveType.cultural:
+        return PhosphorIconsRegular.buildings;
     }
   }
 

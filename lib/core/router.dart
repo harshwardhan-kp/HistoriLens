@@ -6,6 +6,7 @@ import '../screens/auth/login_screen.dart';
 import '../screens/auth/signup_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/perspectives/perspectives_screen.dart';
+import '../screens/pricing/pricing_screen.dart';
 import '../models/historical_event.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -49,6 +50,10 @@ GoRouter createRouter() {
           final event = state.extra as HistoricalEvent;
           return PerspectivesScreen(event: event);
         },
+      ),
+      GoRoute(
+        path: '/pricing',
+        builder: (context, state) => const PricingScreen(),
       ),
     ],
   );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../core/theme.dart';
 import '../../services/auth_service.dart';
 
@@ -47,11 +48,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       if (!mounted) return;
 
-      // If session is immediately available (email confirmation disabled), go home
       if (response.session != null) {
         context.go('/home');
       } else {
-        // Email confirmation required — show success state
         setState(() => _success = true);
       }
     } on AuthException catch (e) {
@@ -90,8 +89,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             color: AppTheme.primaryLight,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: const Center(
-            child: Icon(Icons.mark_email_read_outlined, color: AppTheme.primary, size: 36),
+          child: Center(
+            child: PhosphorIcon(PhosphorIconsRegular.envelopeOpen, color: AppTheme.primary, size: 36),
           ),
         ),
         const SizedBox(height: 24),
@@ -143,15 +142,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             color: AppTheme.primary,
             borderRadius: BorderRadius.circular(14),
           ),
-          child: const Center(child: Text('🔭', style: TextStyle(fontSize: 26))),
+          child: Center(
+            child: PhosphorIcon(PhosphorIconsRegular.planet, color: Colors.white, size: 26),
+          ),
         ),
         const SizedBox(height: 20),
         Text('Create account', style: Theme.of(context).textTheme.displayMedium),
         const SizedBox(height: 6),
-        Text(
-          'Start exploring history through every lens',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
+        Text('Start exploring history through every lens', style: Theme.of(context).textTheme.bodyMedium),
       ],
     );
   }
@@ -170,9 +168,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             keyboardType: TextInputType.emailAddress,
             autocorrect: false,
             textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Email',
-              prefixIcon: Icon(Icons.email_outlined, size: 20),
+              prefixIcon: PhosphorIcon(PhosphorIconsRegular.envelope, size: 20, color: AppTheme.textSecondary),
             ),
             validator: (v) {
               if (v == null || v.isEmpty) return 'Please enter your email';
@@ -187,10 +185,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
               labelText: 'Password',
-              prefixIcon: const Icon(Icons.lock_outlined, size: 20),
+              prefixIcon: PhosphorIcon(PhosphorIconsRegular.lockSimple, size: 20, color: AppTheme.textSecondary),
               suffixIcon: IconButton(
-                icon: Icon(
-                  _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                icon: PhosphorIcon(
+                  _obscurePassword ? PhosphorIconsRegular.eye : PhosphorIconsRegular.eyeSlash,
                   size: 20,
                   color: AppTheme.textSecondary,
                 ),
@@ -211,10 +209,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             onFieldSubmitted: (_) => _signUp(),
             decoration: InputDecoration(
               labelText: 'Confirm Password',
-              prefixIcon: const Icon(Icons.lock_outlined, size: 20),
+              prefixIcon: PhosphorIcon(PhosphorIconsRegular.lockSimple, size: 20, color: AppTheme.textSecondary),
               suffixIcon: IconButton(
-                icon: Icon(
-                  _obscureConfirm ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                icon: PhosphorIcon(
+                  _obscureConfirm ? PhosphorIconsRegular.eye : PhosphorIconsRegular.eyeSlash,
                   size: 20,
                   color: AppTheme.textSecondary,
                 ),
@@ -244,16 +242,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 1),
-            child: Icon(Icons.error_outline, color: AppTheme.error, size: 18),
+          Padding(
+            padding: const EdgeInsets.only(top: 1),
+            child: PhosphorIcon(PhosphorIconsRegular.warning, color: AppTheme.error, size: 18),
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              message,
-              style: const TextStyle(color: AppTheme.error, fontSize: 13, height: 1.4),
-            ),
+            child: Text(message, style: const TextStyle(color: AppTheme.error, fontSize: 13, height: 1.4)),
           ),
         ],
       ),
@@ -266,11 +261,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: ElevatedButton(
         onPressed: _isLoading ? null : _signUp,
         child: _isLoading
-            ? const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-              )
+            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
             : const Text('Create Account'),
       ),
     );

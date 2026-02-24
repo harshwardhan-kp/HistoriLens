@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../core/theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -82,10 +83,11 @@ class _SplashScreenState extends State<SplashScreen>
                           ),
                         ],
                       ),
-                      child: const Center(
-                        child: Text(
-                          '🔭',
-                          style: TextStyle(fontSize: 44),
+                      child: Center(
+                        child: PhosphorIcon(
+                          PhosphorIconsRegular.planet,
+                          color: Colors.white,
+                          size: 44,
                         ),
                       ),
                     ),

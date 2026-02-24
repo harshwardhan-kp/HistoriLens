@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../core/theme.dart';
 import '../../core/constants.dart';
 import '../../models/historical_event.dart';
@@ -91,7 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
               color: AppTheme.primary,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Center(child: Text('🔭', style: TextStyle(fontSize: 16))),
+            child: Center(
+              child: PhosphorIcon(PhosphorIconsRegular.planet, color: Colors.white, size: 18),
+            ),
           ),
           const SizedBox(width: 10),
           Text(
@@ -107,18 +110,26 @@ class _HomeScreenState extends State<HomeScreen> {
           offset: const Offset(0, 48),
           itemBuilder: (context) => [
             PopupMenuItem(
+              value: 'pricing',
+              child: Row(children: [
+                PhosphorIcon(PhosphorIconsRegular.crown, size: 18, color: AppTheme.primary),
+                const SizedBox(width: 10),
+                Text('Upgrade Plan', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.primary, fontWeight: FontWeight.w600)),
+              ]),
+            ),
+            const PopupMenuDivider(),
+            PopupMenuItem(
               value: 'signout',
-              child: Row(
-                children: [
-                  const Icon(Icons.logout, size: 18, color: AppTheme.textSecondary),
-                  const SizedBox(width: 10),
-                  Text('Sign Out', style: Theme.of(context).textTheme.bodyMedium),
-                ],
-              ),
+              child: Row(children: [
+                PhosphorIcon(PhosphorIconsRegular.signOut, size: 18, color: AppTheme.textSecondary),
+                const SizedBox(width: 10),
+                Text('Sign Out', style: Theme.of(context).textTheme.bodyMedium),
+              ]),
             ),
           ],
           onSelected: (value) {
             if (value == 'signout') _signOut();
+            if (value == 'pricing') context.push('/pricing');
           },
         ),
         const SizedBox(width: 8),
@@ -136,10 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         decoration: InputDecoration(
           hintText: 'Search historical events...',
-          prefixIcon: const Icon(Icons.search, size: 20, color: AppTheme.textTertiary),
+          prefixIcon: PhosphorIcon(PhosphorIconsRegular.magnifyingGlass, size: 20, color: AppTheme.textTertiary),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.close, size: 18, color: AppTheme.textTertiary),
+                  icon: PhosphorIcon(PhosphorIconsRegular.x, size: 18, color: AppTheme.textTertiary),
                   onPressed: () {
                     _searchController.clear();
                     setState(() => _searchQuery = '');
@@ -154,46 +165,84 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCustomEventBanner() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-      child: InkWell(
-        onTap: _openCustomEvent,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            color: AppTheme.primaryLight,
+      child: Column(
+        children: [
+          // Upgrade banner
+          InkWell(
+            onTap: () => context.push('/pricing'),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.add_circle_outline, color: AppTheme.primary, size: 20),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Explore any event',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(color: AppTheme.primary),
-                    ),
-                    Text(
-                      'Type a custom historical event or topic',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: AppTheme.primary.withValues(alpha: 0.8)),
-                    ),
-                  ],
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
                 ),
+                borderRadius: BorderRadius.circular(12),
               ),
-              const Icon(Icons.arrow_forward_ios, size: 14, color: AppTheme.primary),
-            ],
-          ),
-        ),
-      ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+              child: Row(
+                children: [
+                  PhosphorIcon(PhosphorIconsRegular.graduationCap, color: Colors.white, size: 20),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Unlock Scholar plan',
+                          style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'DeepSeek R1 · 8 perspectives · Export PDF',
+                          style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 11),
+                        ),
+                      ],
+                    ),
+                  ),
+                  PhosphorIcon(PhosphorIconsRegular.caretRight, size: 12, color: Colors.white),
+                ],
+              ),
+            ),
+          ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+          const SizedBox(height: 10),
+          // Custom event banner
+          InkWell(
+            onTap: _openCustomEvent,
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              decoration: BoxDecoration(
+                color: AppTheme.primaryLight,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
+              ),
+              child: Row(
+                children: [
+                  PhosphorIcon(PhosphorIconsRegular.plusCircle, color: AppTheme.primary, size: 20),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Explore any event',
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppTheme.primary),
+                        ),
+                        Text(
+                          'Type a custom historical event or topic',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.primary.withValues(alpha: 0.8)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  PhosphorIcon(PhosphorIconsRegular.caretRight, size: 14, color: AppTheme.primary),
+                ],
+              ),
+            ),
+          ).animate(delay: 50.ms).fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+        ],
+      ),
     );
   }
 
